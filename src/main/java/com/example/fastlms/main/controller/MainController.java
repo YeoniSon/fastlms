@@ -1,4 +1,4 @@
-package com.example.fastlms;
+package com.example.fastlms.main.controller;
 
 // MainPage 클래스를 만드는 목적!!
 // 매핑을 하기 위해서...
@@ -24,7 +24,7 @@ public class MainController {
     @RequestMapping("/") // 요청 매핑
     public String index() {
 
-        String email = "받을 메일 주소";
+        String email = "sjy8211@gmail.com";
         String subject = "안녕하세요. 제로베이스 입니다.";
         String text = "<p>안녕하세요. </p><p>반갑습니다.</p>";
 
