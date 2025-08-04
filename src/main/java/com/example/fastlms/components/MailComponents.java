@@ -18,7 +18,7 @@ public class MailComponents {
     public void sendMailTest() {
 
         SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo("받을 메일 주소");
+        msg.setTo("sjy8211@gmail.com");
         msg.setSubject("안녕하세요. 제로베이스 입니다.");
         msg.setText("안녕하세요. 반갑습니다.");
 
