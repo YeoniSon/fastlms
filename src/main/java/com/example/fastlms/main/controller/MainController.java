@@ -24,12 +24,6 @@ public class MainController {
     @RequestMapping("/") // 요청 매핑
     public String index() {
 
-        String email = "sjy8211@gmail.com";
-        String subject = "안녕하세요. 제로베이스 입니다.";
-        String text = "<p>안녕하세요. </p><p>반갑습니다.</p>";
-
-        mailComponents.sendMailTest();
-
         return "index";
     }
 
@@ -43,4 +37,11 @@ public class MainController {
 
     // request -> WEB -> SERVER
     // response -> SERVER -> WEB
+
+
+
+    @RequestMapping("/error/denied")
+    public String errorDenied() {
+        return "error/denied";
+    }
 }
