@@ -1,5 +1,8 @@
 package com.example.fastlms.member.service.impl;
 
+import com.example.fastlms.admin.dto.MemberDto;
+import com.example.fastlms.admin.mapper.MemberMapper;
+import com.example.fastlms.admin.model.MemberParam;
 import com.example.fastlms.components.MailComponents;
 import com.example.fastlms.member.entity.Member;
 import com.example.fastlms.member.exception.MemberNotEmailAuthException;
@@ -15,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -28,6 +32,8 @@ public class MemberSericeImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final MailComponents mailComponents;
+
+    private final MemberMapper memberMapper;
 
     /**
      * 회원가입
@@ -140,7 +146,7 @@ public class MemberSericeImpl implements MemberService {
             throw new RuntimeException("유효한 날짜가 아닙니다.");
         }
 
-        if (member.getResetPasswordLimitDt().isBefore(LocalDateTime.now())){
+        if (member.getResetPasswordLimitDt().isBefore(LocalDateTime.now())) {
             throw new RuntimeException("유효한 날짜가 아닙니다.");
         }
 
@@ -168,11 +174,33 @@ public class MemberSericeImpl implements MemberService {
             throw new RuntimeException("유효한 날짜가 아닙니다.");
         }
 
-        if (member.getResetPasswordLimitDt().isBefore(LocalDateTime.now())){
+        if (member.getResetPasswordLimitDt().isBefore(LocalDateTime.now())) {
             throw new RuntimeException("유효한 날짜가 아닙니다.");
         }
 
         return true;
+    }
+
+    @Override
+    public List<MemberDto> list(MemberParam parameter) {
+
+        long totalCount = memberMapper.selectListCount(parameter);
+
+        List<MemberDto> list =
+                memberMapper.selectList(parameter);
+
+        if (!CollectionUtils.isEmpty(list)) {
+            int i = 0;
+            for (MemberDto x : list){
+                x.setTotalCount(totalCount);
+                x.setSeq(totalCount - parameter.getPageStart() - i);
+                i++;
+            }
+        }
+
+        return list;
+
+//        return memberRepository.findAll();
     }
 
     @Override
@@ -198,6 +226,6 @@ public class MemberSericeImpl implements MemberService {
             grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
 
-        return new User(member.getUserId(), member.getPassword(),grantedAuthorities);
+        return new User(member.getUserId(), member.getPassword(), grantedAuthorities);
     }
 }
