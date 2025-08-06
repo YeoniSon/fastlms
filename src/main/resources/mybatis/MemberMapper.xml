@@ -67,6 +67,7 @@
                     </otherwise>
                 </choose>
             </if>
+        order by user_id
         limit #{pageStart}, #{pageEnd}
     </select>
 
