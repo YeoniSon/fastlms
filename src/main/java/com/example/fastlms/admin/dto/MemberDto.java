@@ -1,12 +1,14 @@
 package com.example.fastlms.admin.dto;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import com.example.fastlms.member.entity.Member;
+import lombok.*;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Data
 public class MemberDto {
 
@@ -24,8 +26,30 @@ public class MemberDto {
     LocalDateTime resetPasswordLimitDt;
 
     boolean adminYn;
+    String userStatus;
 
     // 추가 컬럼
     long totalCount;
     long seq;
+
+    public static MemberDto of(Member member) {
+
+        return MemberDto.builder()
+                .userId(member.getUserId())
+                .userName(member.getUserName())
+                .phone(member.getPhone())
+//                .password(member.getPassword())
+
+                .regDt(member.getRegDt())
+                .emailAuthYn(member.isEmailAuthYn())
+                .emailAuthDt(member.getEmailAuthDt())
+                .emailAuthKey(member.getEmailAuthKey())
+
+                .resetPasswordKey(member.getResetPasswordKey())
+                .resetPasswordLimitDt(member.getResetPasswordLimitDt())
+
+                .adminYn(member.isAdminYn())
+                .userStatus(member.getUserStatus())
+                .build();
+    }
 }
