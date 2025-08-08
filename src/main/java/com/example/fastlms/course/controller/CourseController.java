@@ -54,6 +54,7 @@ public class CourseController extends BaseController {
     public String courseDetail(Model model
             , CourseParam parameter
     ) {
+
         CourseDto detail =
                 courseService.frontDetail(parameter.getId());
         model.addAttribute("detail", detail);
