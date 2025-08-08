@@ -53,9 +53,9 @@
     </script>
 </head>
 <body>
+<div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
 <h1>강좌 상세 페이지</h1>
 
-<div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
 
 <div>
     <h2>강좌명: <span th:text="${detail.subject}">강좌</span></h2>
