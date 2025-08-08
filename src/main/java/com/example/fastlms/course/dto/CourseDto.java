@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @Data
@@ -50,5 +52,18 @@ public class CourseDto {
                 .regDt(course.getRegDt())
                 .uptDt(course.getUptDt())
                 .build();
+    }
+
+
+    public static List<CourseDto> of(List<Course> courses) {
+
+        if (courses == null) {
+            return null;
+        }
+        List<CourseDto> courseList = new ArrayList<>();
+        for (Course x: courses) {
+            courseList.add(CourseDto.of(x));
+        }
+        return courseList;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.fastlms.course.service;
 
+import com.example.fastlms.admin.dto.CategoryDto;
 import com.example.fastlms.course.dto.CourseDto;
 import com.example.fastlms.course.model.CourseInput;
 import com.example.fastlms.course.model.CourseParam;
@@ -32,4 +33,14 @@ public interface CourseService {
      * 강좌 내용 삭제
      */
     boolean del(String idList);
+
+    /**
+     * 프론트 강좌 목록
+     */
+    List<CourseDto> frontList(CourseParam parameter);
+
+    /**
+     * 프론트 강좌 상세 정보
+     */
+    CourseDto frontDetail(long id);
 }
