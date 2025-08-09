@@ -60,6 +60,8 @@ public class CourseServiceImpl implements CourseService {
                 // 종료일 문자열
                 .saleEndDt(saleEndDt)
                 .regDt(LocalDateTime.now())
+                .filename(parameter.getFilename())
+                .urlFilename(parameter.getUrlFilename())
                 .build();
 
         courseRepository.save(course);
@@ -91,6 +93,8 @@ public class CourseServiceImpl implements CourseService {
         //종료문자열
         course.setSaleEndDt(saleEndDt);
         course.setUptDt(LocalDateTime.now());
+        course.setFilename(parameter.getFilename());
+        course.setUrlFilename(parameter.getUrlFilename());
 
         courseRepository.save(course);
 
@@ -214,5 +218,14 @@ public class CourseServiceImpl implements CourseService {
         result.setResult(true);
         result.setMessage("");
         return result;
+    }
+
+    @Override
+    public List<CourseDto> listAll() {
+
+        List<Course> courseList = courseRepository.findAll();
+
+
+        return CourseDto.of(courseList);
     }
 }
